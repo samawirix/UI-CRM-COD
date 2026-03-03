@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--bg-page);
+  --color-foreground: var(--text-primary);
+  --color-card: var(--bg-card);
+  --color-card-foreground: var(--text-primary);
+  --color-popover: var(--bg-card);
+  --color-popover-foreground: var(--text-primary);
+  --color-primary: var(--accent-brand);
+  --color-primary-foreground: #ffffff;
+  --color-secondary: var(--text-secondary);
+  --color-secondary-foreground: var(--text-primary);
+  --color-muted: var(--text-muted);
+  --color-muted-foreground: var(--text-secondary);
+  --color-accent: var(--accent-brand);
+  --color-accent-foreground: #ffffff;
+  --color-destructive: var(--accent-danger);
+  --color-destructive-foreground: #ffffff;
+  --color-border: var(--border-card);
+  --color-input: var(--border-card);
+  --color-ring: var(--accent-brand);
+
+  --color-sidebar: #0d1a21;
+  --color-sidebar-foreground: rgba(255, 255, 255, 0.7);
+  --color-sidebar-border: rgba(255, 255, 255, 0.08);
+
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'DM Serif Display', serif;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  --shadow-micro: 0 1px 2px rgba(0,0,0,0.03);
+  --shadow-slideover: -4px 0 24px rgba(0,0,0,0.08);
+}
+
+:root {
+  /* Tier 1 - Dashboard & KPI Cards */
+  --text-primary: #1a1a1a;
+  --text-secondary: #6b6b6b;
+  --text-muted: #9b9b9b;
+  --bg-page: #faf9f6;
+  --bg-card: #ffffff;
+  --border-card: #e8e5e0;
+  --accent-brand: #0d736a;
+  --accent-danger: #d93025;
+
+  /* Tier 2 - Tables & Status Pills */
+  --status-confirmed: #0d736a;
+  --status-pending: #e38637;
+  --status-shipped: #3366cc;
+  --status-delivered: #29a363;
+  --status-returned: #d93025;
+  --status-cancelled: #94908a;
+
+  /* Tier 3 - Charts */
+  --chart-1: #0d736a;
+  --chart-2: #3366cc;
+  --chart-3: #e38637;
+  --chart-4: #94908a;
+  --chart-positive: #29a363;
+  --chart-negative: #d93025;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply font-sans antialiased bg-background text-foreground selection:bg-primary selection:text-white;
+  }
+  
+  h1, h2, h3, .font-serif {
+    @apply font-serif tracking-tight;
+  }
+}
+
+.kpi-card {
+  @apply bg-[var(--bg-card)] rounded-[12px] border border-[var(--border-card)] p-5 md:p-6 transition-all duration-200 hover:-translate-y-[1px] hover:border-[#d0ccc5] cursor-pointer shadow-micro;
+}
+
+.kpi-card-danger {
+  @apply bg-[var(--bg-card)] rounded-[12px] border border-[var(--border-card)] p-5 md:p-6 transition-all duration-200 hover:-translate-y-[1px] hover:border-[#d0ccc5] cursor-pointer shadow-micro border-l-[3px] border-l-[var(--accent-danger)];
+}
+
+.status-pill {
+  @apply px-3 py-1 rounded-full text-[12px] font-medium inline-flex items-center justify-center;
+}
+
+.status-nouveau, .status-confirme {
+  @apply bg-[var(--status-confirmed)]/10 text-[var(--status-confirmed)];
+}
+
+.status-en-attente {
+  @apply bg-[var(--status-pending)]/10 text-[var(--status-pending)];
+}
+
+.status-expedie {
+  @apply bg-[var(--status-shipped)]/10 text-[var(--status-shipped)];
+}
+
+.status-livre {
+  @apply bg-[var(--status-delivered)]/10 text-[var(--status-delivered)];
+}
+
+.status-retourne {
+  @apply bg-[var(--status-returned)]/10 text-[var(--status-returned)];
+}
+
+.status-annule {
+  @apply bg-[var(--status-cancelled)]/10 text-[var(--status-cancelled)];
+}
+
+.filter-pill {
+  @apply px-4 py-1.5 rounded-full text-[13px] font-medium border border-[var(--border-card)] text-[var(--text-secondary)] bg-white transition-colors cursor-pointer hover:bg-gray-50 whitespace-nowrap flex items-center gap-2;
+}
+
+.filter-pill.active {
+  @apply bg-[var(--accent-brand)] text-white border-[var(--accent-brand)];
+}
+
+.filter-pill .pill-count {
+  @apply bg-[var(--bg-page)] text-[var(--text-secondary)] px-2 py-0.5 rounded-full text-[11px] font-semibold;
+}
+
+.filter-pill.active .pill-count {
+  @apply bg-white/20 text-white;
+}
+
+.table-header {
+  @apply text-[11px] font-semibold text-[var(--text-secondary)] uppercase tracking-[0.5px] border-b border-[var(--border-card)] pb-3 px-4 text-left;
+}
+
+.table-row {
+  @apply border-b border-[#f0ede8] transition-colors hover:bg-[var(--bg-page)] cursor-pointer;
+}
+
+.table-cell {
+  @apply text-[13px] md:text-[14px] font-normal text-[var(--text-primary)] py-3 px-4;
+}
+
+.btn-primary {
+  @apply bg-[var(--accent-brand)] text-white text-[14px] font-semibold py-2.5 px-5 md:px-6 rounded-[8px] transition-colors hover:bg-[#0a5c55];
+}
+
+.btn-secondary {
+  @apply bg-transparent border border-[var(--border-card)] text-[var(--text-primary)] text-[14px] font-medium py-2 px-4 rounded-[8px] transition-colors hover:bg-[#f5f4f0];
+}
+
+.btn-icon {
+  @apply w-9 h-9 flex items-center justify-center bg-transparent border border-transparent text-[var(--text-secondary)] rounded-[8px] transition-colors hover:bg-[#f5f4f0] hover:border-[var(--border-card)];
+}
+
+.section-header {
+  @apply text-[13px] uppercase tracking-[1.5px] font-semibold text-[var(--text-secondary)] mb-5 md:mb-6 flex items-center gap-4;
+}
+
+.section-line {
+  @apply flex-1 h-[1px] bg-[var(--border-card)];
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) skewX(-20deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-20deg);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s infinite;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
